@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DataGridMaui.LoadMorePage"
+             xmlns:local="clr-namespace:DataGridMaui"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             Title="LoadMorePage">
+    <ContentPage.BindingContext>
+        <local:LoadMoreViewModel x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <syncfusion:SfDataGrid  x:Name="dataGrid" ColumnWidthMode="Fill"
+                            AllowSwiping="True" 
+                        ItemsSource="{Binding OrderInfoCollection}">
+        <syncfusion:SfDataGrid.LeftSwipeTemplate>
+            <DataTemplate>
+                <Label BackgroundColor="Yellow" Text="Left"/>
+            </DataTemplate>
+        </syncfusion:SfDataGrid.LeftSwipeTemplate>
+
+
+        <syncfusion:SfDataGrid.RightSwipeTemplate>
+            <DataTemplate>
+                <Label BackgroundColor="Pink" Text="Right"/>
+            </DataTemplate>
+        </syncfusion:SfDataGrid.RightSwipeTemplate>
+        <syncfusion:SfDataGrid.Columns>
+            <syncfusion:DataGridNumericColumn HeaderText="Order ID" Format="0"
+                                            MappingName="OrderID" />
+
+            <syncfusion:DataGridTextColumn  HeaderText="Customer ID"
+                                            MappingName="CustomerID" />
+
+            <syncfusion:DataGridTextColumn  HeaderText="Customer"
+                                            MappingName="Customer"/>
+
+            <syncfusion:DataGridTextColumn  HeaderText="Ship City"
+                                            MappingName="ShipCity" />
+
+        </syncfusion:SfDataGrid.Columns>
+    </syncfusion:SfDataGrid>
+</ContentPage>

@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DataGridMaui.MainPage"
+             xmlns:local="clr-namespace:DataGridMaui"
+             xmlns:pager="clr-namespace:Syncfusion.Maui.DataGrid.DataPager;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid">
+
+    <ContentPage.BindingContext>
+        <local:OrderInfoRepository/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
+                <!--<RowDefinition Height="100"/>-->
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btn" Text="Change" Clicked="btn_Clicked" Grid.Column="0" Grid.Row="0"/>
+                <Button x:Name="left" Text="Left" Clicked="left_Clicked"  Grid.Column="1" Grid.Row="0"/>
+                <Button x:Name="right" Text="Right" Clicked="right_Clicked"  Grid.Column="2" Grid.Row="0"/>
+                <Button x:Name="sourceChanged" Text="Source" Clicked="sourceChanged_Clicked" Grid.Column="3" Grid.Row="0"/>
+                <Button x:Name="columnSizer" Text="Sizer" Clicked="columnSizer_Clicked" Grid.Column="0" Grid.Row="1"/>
+                <Button x:Name="sorting" Text="Sorting" Clicked="sorting_Clicked" Grid.Column="1" Grid.Row="1"/>
+                <Button x:Name="group" Text="Grouping" Clicked="group_Clicked"  Grid.Column="2" Grid.Row="1"/>
+                <Button x:Name="summary" Text="Summary" Clicked="summary_Clicked" Grid.Column="3" Grid.Row="1"/>
+                <Button x:Name="selection" Text="Select" Clicked="selection_Clicked" Grid.Column="0" Grid.Row="2"/>
+                <Button x:Name="stack" Text="Stack" Clicked="stack_Clicked" Grid.Column="1" Grid.Row="2"/>
+                <Button x:Name="unbound" Text="Unbound" Clicked="unbound_Clicked" Grid.Column="2" Grid.Row="2"/>
+                <Button x:Name="rowHeight" Text="RowHeight" Clicked="rowHeight_Clicked" Grid.Column="3" Grid.Row="2"/>
+            </Grid>
+            <!--<pager:SfDataPager x:Name ="dataPager"
+                           Grid.Row="2"
+                           PageSize="5" 
+                           NumericButtonCount="3"
+                           Source="{Binding OrderInfoCollection}">
+            </pager:SfDataPager>-->
+            <!--ItemsSource="{Binding Source={x:Reference dataPager}, Path=PagedSource }"-->
+            <syncfusion:SfDataGrid x:Name="dataGrid" Grid.Row="1"
+                                    ItemsSource="{Binding OrderInfoCollection}"  
+                            
+                          AutoGenerateColumnsMode="None"
+                                  >
+
+                <!--<syncfusion:SfDataGrid.DefaultStyle>
+                    <syncfusion:DataGridStyle RowBackground="SkyBlue"/>
+                </syncfusion:SfDataGrid.DefaultStyle>-->
+
+                <syncfusion:SfDataGrid.LeftSwipeTemplate>
+                    <!--<local:LeftTemplateSelector/>-->
+                    <DataTemplate>
+                        <Label BackgroundColor="Yellow" Text="Left"/>
+                    </DataTemplate>
+                </syncfusion:SfDataGrid.LeftSwipeTemplate>
+
+
+                <syncfusion:SfDataGrid.RightSwipeTemplate>
+                    <!--<local:RightTemplateSelector/>-->
+                    <DataTemplate>
+                        <Label BackgroundColor="Pink" Text="Right"/>
+                    </DataTemplate>
+                </syncfusion:SfDataGrid.RightSwipeTemplate>
+
+                <syncfusion:SfDataGrid.Columns>
+                    <!--<syncfusion:DataGridUnboundColumn />-->
+                    <syncfusion:DataGridTextColumn MappingName="OrderID"
+                                                   HeaderText="Order ID"/>
+                    <syncfusion:DataGridTextColumn MappingName="CustomerID"
+                                                   HeaderText="Customer ID"/>
+                    <syncfusion:DataGridTextColumn MappingName="ShipCountry"
+                                                   HeaderText="Ship Country"/>
+                    <!--<syncfusion:DataGridTextColumn MappingName="Customer"
+                                                   HeaderText="Customer"/>
+                    <syncfusion:DataGridTextColumn MappingName="ShipCity"
+                                                   HeaderText="Ship City"/>
+                    <syncfusion:DataGridTextColumn MappingName="OrderID"
+                                HeaderText="Order ID"/>
+                    <syncfusion:DataGridTextColumn MappingName="CustomerID"
+                                HeaderText="Customer ID"/>
+                    <syncfusion:DataGridTextColumn MappingName="ShipCountry"
+                                HeaderText="Ship Country"/>
+                    <syncfusion:DataGridTextColumn MappingName="Customer"
+                                HeaderText="Customer"/>
+                    <syncfusion:DataGridTextColumn MappingName="ShipCity"
+                                HeaderText="Ship City"/>-->
+                </syncfusion:SfDataGrid.Columns>
+
+                <!--<syncfusion:SfDataGrid.SortColumnDescriptions>
+                    <syncfusion:SortColumnDescription ColumnName="OrderID" SortDirection="Descending"/>
+                </syncfusion:SfDataGrid.SortColumnDescriptions>-->
+
+                <!--<syncfusion:SfDataGrid.GroupColumnDescriptions>
+                    <syncfusion:GroupColumnDescription ColumnName="OrderID"/>
+                    
+                --><!--<syncfusion:GroupColumnDescription ColumnName="CustomerID"/>--><!--
+                
+                </syncfusion:SfDataGrid.GroupColumnDescriptions>-->
+
+                <!--<syncfusion:SfDataGrid.CaptionSummaryRow>
+                    <syncfusion:DataGridSummaryRow Title="Total Salary :{TotalSalary} for {ProductCount} members"
+                                   ShowSummaryInRow="True">
+                        <syncfusion:DataGridSummaryRow.SummaryColumns>
+                            <syncfusion:DataGridSummaryColumn Name="TotalSalary"
+                                              Format="{}{Sum:C0}"
+                                              MappingName="OrderID"
+                                              SummaryType="Int32Aggregate" />
+                            <syncfusion:DataGridSummaryColumn Name="ProductCount"
+                                              Format="{}{Count}"
+                                              MappingName="OrderID"
+                                              SummaryType="CountAggregate" />
+                        </syncfusion:DataGridSummaryRow.SummaryColumns>
+                    </syncfusion:DataGridSummaryRow>
+                </syncfusion:SfDataGrid.CaptionSummaryRow>-->
+
+                <!--<syncfusion:SfDataGrid.CaptionSummaryTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Caption Summary Text"
+                           FontSize="Default" BackgroundColor="SkyBlue"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Start"
+                           LineBreakMode="NoWrap"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand">
+                              
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfDataGrid.CaptionSummaryTemplate>-->
+
+                <!--<syncfusion:SfDataGrid.GroupSummaryRows>
+                    <syncfusion:DataGridSummaryRow ShowSummaryInRow="True"
+                                       Title="Total Salary: {Salary} for {customerID} members">
+                        <syncfusion:DataGridSummaryRow.SummaryColumns>
+                            <syncfusion:DataGridSummaryColumn Name="Salary"
+                                                  MappingName="OrderID"
+                                                  Format="{}{Sum:C0}"
+                                                  SummaryType="DoubleAggregate">
+                            </syncfusion:DataGridSummaryColumn>
+                            <syncfusion:DataGridSummaryColumn Name="customerID"
+                                                  MappingName="OrderID"
+                                                  Format="{}{Count}"
+                                                  SummaryType="CountAggregate">
+                            </syncfusion:DataGridSummaryColumn>
+                        </syncfusion:DataGridSummaryRow.SummaryColumns>
+                    </syncfusion:DataGridSummaryRow>
+                </syncfusion:SfDataGrid.GroupSummaryRows>-->
+
+                <!--<syncfusion:SfDataGrid.GroupSummaryTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Group Summary Template"
+                           FontSize="Default" BackgroundColor="SkyBlue"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Start"
+                           LineBreakMode="NoWrap"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand">
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfDataGrid.GroupSummaryTemplate>-->
+
+                <!--<syncfusion:SfDataGrid.TableSummaryRows>
+                    <syncfusion:DataGridTableSummaryRow Title="Total Salary :{TotalSalary} for {ProductCount} members"
+                                        Position="Top"
+                                        ShowSummaryInRow="True">
+                        <syncfusion:DataGridTableSummaryRow.SummaryColumns>
+                            <syncfusion:DataGridSummaryColumn Name="TotalSalary"
+                                              Format="{}{Sum:C0}"
+                                              MappingName="OrderID"
+                                              SummaryType="DoubleAggregate" />
+                            <syncfusion:DataGridSummaryColumn Name="ProductCount"
+                                              Format="{}{Count}"
+                                              MappingName="OrderID"
+                                              SummaryType="CountAggregate" />
+                        </syncfusion:DataGridTableSummaryRow.SummaryColumns>
+                    </syncfusion:DataGridTableSummaryRow>
+                    <syncfusion:DataGridTableSummaryRow Position="Top"
+                                        ShowSummaryInRow="False">
+                        <syncfusion:DataGridTableSummaryRow.SummaryColumns>
+                            <syncfusion:DataGridSummaryColumn Name="TotalSalary"
+                                              Format="{}{Sum:C0}"
+                                              MappingName="OrderID"
+                                              SummaryType="DoubleAggregate" />
+                        </syncfusion:DataGridTableSummaryRow.SummaryColumns>
+                    </syncfusion:DataGridTableSummaryRow>
+                </syncfusion:SfDataGrid.TableSummaryRows>-->
+
+                <!--<syncfusion:SfDataGrid.StackedHeaderRows>
+                    <syncfusion:DataGridStackedHeaderRow>
+                        <syncfusion:DataGridStackedHeaderRow.Columns>
+                            <syncfusion:DataGridStackedColumn
+                            ColumnMappingNames="OrderID,CustomerID,ShipCountry,Customer,ShipCity"
+                            Text="Order Shipment Details"
+                            MappingName="SalesDetails"
+                            />
+                        </syncfusion:DataGridStackedHeaderRow.Columns>
+                    </syncfusion:DataGridStackedHeaderRow>
+                    <syncfusion:DataGridStackedHeaderRow>
+                        <syncfusion:DataGridStackedHeaderRow.Columns>
+                            <syncfusion:DataGridStackedColumn
+                            ColumnMappingNames="OrderID,CustomerID"
+                            Text="Order Details"
+                            MappingName="OrderDetails"
+                            />
+                            <syncfusion:DataGridStackedColumn
+                            ColumnMappingNames="ShipCountry,Customer,ShipCity"
+                            Text="Customer Details"
+                            MappingName="CustomerDetails"
+                            />
+                        </syncfusion:DataGridStackedHeaderRow.Columns>
+                    </syncfusion:DataGridStackedHeaderRow>
+                </syncfusion:SfDataGrid.StackedHeaderRows>-->
+
+                <!--<syncfusion:SfDataGrid.UnboundRows>
+                    <syncfusion:DataGridUnboundRow Position="Top"/>
+                    <syncfusion:DataGridUnboundRow Position="FixedBottom"/>
+                </syncfusion:SfDataGrid.UnboundRows>-->
+
+            </syncfusion:SfDataGrid>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
